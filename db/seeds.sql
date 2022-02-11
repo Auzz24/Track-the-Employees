@@ -1,17 +1,17 @@
 INSERT INTO department (id, name)
 VALUES
-(1, 'Mangement'),
+(1, 'Management'),
 (2, 'Sales'),
 (3, 'Engineering'),
 (4, 'Legal');
 
 INSERT INTO role (id, title, salary, department_id)
 VALUES
-(1, 'CEO', 100,000, 1),
-(2, 'Manager', 70,000, 1),
-(3, 'Sales person', 55,000, 2),
-(4, 'Enginner', 60,000, 3),
-(5, "Lawyer", 65,000, 4);
+(1, 'CEO', 100000, 1),
+(2, 'Manager', 70000, 1),
+(3, 'Sales person', 55000, 2),
+(4, 'Enginner', 60000, 3),
+(5, "Lawyer", 65000, 4);
 
 INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
 VALUES
