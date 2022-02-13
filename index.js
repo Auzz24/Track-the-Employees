@@ -39,7 +39,9 @@ const addDepartment = () =>{
             console.log('department has been logged');
         })
     }
-    ).then(() => start());
+    )
+    // .then(() => start())
+    ;
 };
 
 const addRole = () =>{
@@ -57,7 +59,9 @@ const addRole = () =>{
             console.log('role has been logged');
         })
     }
-    ).then(() => start());
+    )
+    // .then(() => start())
+    ;
 };
 
 const addEmployee = () =>{
@@ -75,7 +79,9 @@ const addEmployee = () =>{
             console.log('employee has been logged');
         })
     }
-    ).then(() => start());
+    )
+    // .then(() => start())
+    ;
 };
 
 const viewDepartments = () => {
@@ -89,14 +95,18 @@ const viewAllRoles = () => {
     const query = `SELECT * FROM role;`;
     db.query(query,(err,data)=>{
         console.table(data)
-    }).then(() => start());
+    })
+    // .then(() => start())
+    ;
 };
 
 const viewAllEmployees = () => {
     const query = `SELECT * FROM employee;`;
     db.query(query,(err,data)=>{
         console.table(data)
-    }).then(() => start());
+    })
+    // .then(() => start())
+    ;
 };
 
 
@@ -124,7 +134,9 @@ const updateRole = ()=> {
         //         ]
         //     )
         // }
-        }).then(() => start());
+        })
+        // .then(() => start())
+        ;
     };
 
 
