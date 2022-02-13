@@ -39,7 +39,7 @@ const addDepartment = () =>{
             console.log('department has been logged');
         })
     }
-    )
+    ).then(() => start());
 };
 
 const addRole = () =>{
@@ -57,7 +57,7 @@ const addRole = () =>{
             console.log('role has been logged');
         })
     }
-    )
+    ).then(() => start());
 };
 
 const addEmployee = () =>{
@@ -75,7 +75,7 @@ const addEmployee = () =>{
             console.log('employee has been logged');
         })
     }
-    )
+    ).then(() => start());
 };
 
 const viewDepartments = () => {
@@ -89,48 +89,44 @@ const viewAllRoles = () => {
     const query = `SELECT * FROM role;`;
     db.query(query,(err,data)=>{
         console.table(data)
-    })
+    }).then(() => start());
 };
 
 const viewAllEmployees = () => {
     const query = `SELECT * FROM employee;`;
     db.query(query,(err,data)=>{
         console.table(data)
-    })
-}
+    }).then(() => start());
+};
 
 
 const updateRole = ()=> {
-    inquirer.prompt(
-        [
-            {
-                type:'list',
-                name: 'roleUpdate',
-                message: 'Choose the employee you want to change',
-                choices: 
-                [
-                    viewAllEmployees()
-                ]
-            }
-        ]
-    );
-    inquirer.prompt(
-        [
-            {
-                type:'input',
-                name: 'changeRole',
-                massage: 'What is the new role for("${answer.roleUpdate}?")'
-            }
-        ]
-    ).then((answer)=>{
-        const query = `INSERT INTO employee (role_id) VALUES ("${answer.employeeName}");`;
-        db.query(query,()=>{
-            console.log('employee has been logged');
-        })
-    }
+    const query = `SELECT first_name, last_name FROM employee;`;
+    db.query(query, (err,data)=>{
+        inquirer.prompt(
+            [
+                {
+                    type: 'list',
+                    name: 'roleUpdate',
+                    message: 'Choose the employee you want to change',
+                    choices: data
+                }
+            ]
+        )
+        // ).then((answer)) => {
+        //     inquirer.prompt(
+        //         [
+        //             {
+        //                 type: 'input',
+        //                 name: 'changeRole',
+        //                 massage: `What is the new role for("${answer.roleUpdate}?")`
+        //             }
+        //         ]
+        //     )
+        // }
+        }).then(() => start());
+    };
 
-    )
-};
 
 
 
@@ -162,7 +158,6 @@ switch (answer.usage){
     case 'Update an existing role?':
         updateRole();
         break;
-        
     default:
         console.log("default")
 }
