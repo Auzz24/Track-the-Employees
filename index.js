@@ -11,7 +11,10 @@ const questions = [
             'Add Depatment?',
             'Add Role?', 
             'Add Employee?',
-            'View departments?'
+            'View departments?',
+            'View all roles?',
+            'Update an existing role?',
+            'View all employees?'
         ],
         },
 
@@ -82,6 +85,55 @@ const viewDepartments = () => {
         })
 };
 
+const viewAllRoles = () => {
+    const query = `SELECT * FROM role;`;
+    db.query(query,(err,data)=>{
+        console.table(data)
+    })
+};
+
+const viewAllEmployees = () => {
+    const query = `SELECT * FROM employee;`;
+    db.query(query,(err,data)=>{
+        console.table(data)
+    })
+}
+
+
+const updateRole = ()=> {
+    inquirer.prompt(
+        [
+            {
+                type:'list',
+                name: 'roleUpdate',
+                message: 'Choose the employee you want to change',
+                choices: 
+                [
+                    viewAllEmployees()
+                ]
+            }
+        ]
+    );
+    inquirer.prompt(
+        [
+            {
+                type:'input',
+                name: 'changeRole',
+                massage: 'What is the new role for("${answer.roleUpdate}?")'
+            }
+        ]
+    ).then((answer)=>{
+        const query = `INSERT INTO employee (role_id) VALUES ("${answer.employeeName}");`;
+        db.query(query,()=>{
+            console.log('employee has been logged');
+        })
+    }
+
+    )
+};
+
+
+
 start()
 .then((answer)=> {
 console.log(answer);
@@ -101,6 +153,16 @@ switch (answer.usage){
     case 'View departments?':
         viewDepartments();
         break;
+    case 'View all roles?':
+        viewAllRoles();
+        break;
+    case 'View all employees?':
+        viewAllEmployees();
+        break;
+    case 'Update an existing role?':
+        updateRole();
+        break;
+        
     default:
         console.log("default")
 }
