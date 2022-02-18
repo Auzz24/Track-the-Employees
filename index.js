@@ -35,7 +35,7 @@ const addDepartment = () =>{
         ]
     ).then((answer)=>{
         const query = `INSERT INTO department (name) VALUES ("${answer.departmentName}");`;
-        db.query(query,()=>{
+        db.query(query,(errr, data)=>{
             console.log('department has been logged');
         })
     }
@@ -53,12 +53,6 @@ const addRole = () =>{
                 message: 'What is the title of the new role?',
             }
         ]
-    ).then((answer)=>{
-        const query = `INSERT INTO role (title) VALUES ("${answer.roleTitle}");`;
-        db.query(query,()=>{
-            console.log('role has been logged');
-        })
-    }
     )
     // .then(() => start())
     ;
@@ -133,38 +127,38 @@ const updateRole = ()=> {
                     }
                 }
             ]
-        )
-    // }).then((answer) => {
-    //     const query = `SELECT title FROM role`;
-    //     db.query (query, (err,data)=>{
-    //     inquirer.prompt(
-    //         [
-    //             {
-    //                 type: 'list',
-    //                 name: 'changeRole',
-    //                 massage: `What is the new role for("${answer.roleUpdate}?")`,
-    //                 choices: function(){
-    //                     const myRole = [];
+        ).then((answer) => {
+            const query = `SELECT title FROM role`;
+        })
+    });
+    db.query (query, (err,data)=>{
+        inquirer.prompt(
+            [
+                {
+                    type: 'list',
+                    name: 'changeRole',
+                    massage: `What is the new role?"`,
+                    choices: function(){
+                        const myRole = [];
 
-    //                     for (let i= 0; i < data.length; i++) {
-    //                         const roleData= {
-    //                             name: data[i].title,
-    //                             value: data[i].id
-    //                     }
-    //                     myRole.push(roleData);
-    //              }
-    //              return myRole;
-    //             }
-    //         }
-    //         ]
-    //     )
-    //     }).then((answer)=>{
-    //         const query = `INSERT INTO employee (name) VALUES ("${answer.roleData.value}");`;
-    //         db.query(query,()=>{
-    //             console.log('employee has been logged');
-    //         })
-    //     }
-    //     );
+                        for (let i= 0; i < data.length; i++) {
+                            const roleData= {
+                                name: data[i].title,
+                                value: data[i].id
+                        }
+                        myRole.push(roleData);
+                 }
+                 return myRole;
+                }
+            }
+            ]
+        ).then((answer)=>{
+            const query = `INSERT INTO employee (role_id) VALUES ("${answer.roleData.value}");`;
+            db.query(query,()=>{
+                console.log('employees new role has been logged');
+            })
+        }
+        );
     });
 };
 
