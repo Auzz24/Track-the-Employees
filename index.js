@@ -151,7 +151,7 @@ const updateRole = ()=> {
                     }
                     ]
                 ).then((answer)=>{
-                    const query = `INSERT INTO employee (role_id) VALUES ("${answer.roleData.value}");`;
+                    const query = `INSERT INTO employee (role_id) VALUES ("${answer.roleData}");`;
                     db.query(query,()=>{
                         console.log('employees new role has been logged');
                     })
