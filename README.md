@@ -24,7 +24,8 @@ JavaScript,Node,Mysql
 
 ## Usage 
 
-![alt text](assets/employeetrack.gif)'
+Link to the usage video: 
+(https://drive.google.com/file/d/1wDB7h3J7Lstei91lH0-8Nwch6RRCDZ8u/view)
 
 
 ## Credits
