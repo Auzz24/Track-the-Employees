@@ -13,8 +13,9 @@ const questions = [
             'Add Employee?',
             'View departments?',
             'View all roles?',
-            'Update an existing role?',
-            'View all employees?'
+            'View all employees?',
+            'Update an employee role?',
+            'exit?'
         ],
         },
 
@@ -37,10 +38,10 @@ const addDepartment = () =>{
         const query = `INSERT INTO department (name) VALUES ("${answer.departmentName}");`;
         db.query(query,(errr, data)=>{
             console.log('department has been logged');
+            mainMenu();
         })
     }
     )
-    // .then(() => start())
     ;
 };
 
@@ -53,8 +54,14 @@ const addRole = () =>{
                 message: 'What is the title of the new role?',
             }
         ]
+    ).then((answer)=>{
+        const query = `INSERT INTO role (title) VALUES ("${answer.roleTitle}");`;
+        db.query(query,()=>{
+            console.log('role has been logged')
+            mainMenu();
+        })
+    }
     )
-    // .then(() => start())
     ;
 };
 
@@ -64,17 +71,17 @@ const addEmployee = () =>{
             {
                 type: 'input',
                 name: 'employeeName',
-                message: 'What is the name of your employee?',
+                message: 'What is the first name of your new employee?',
             }
         ]
     ).then((answer)=>{
-        const query = `INSERT INTO employee (name) VALUES ("${answer.employeeName}");`;
+        const query = `INSERT INTO employee (first_name) VALUES ("${answer.employeeName}");`;
         db.query(query,()=>{
-            console.log('employee has been logged');
+            console.log('employee has been logged')
+            mainMenu();
         })
     }
     )
-    // .then(() => start())
     ;
 };
 
@@ -82,6 +89,7 @@ const viewDepartments = () => {
     const query = `SELECT * FROM department;`;
         db.query(query,(err, data)=>{
             console.table(data)
+            mainMenu()
         })
 };
 
@@ -89,8 +97,8 @@ const viewAllRoles = () => {
     const query = `SELECT * FROM role;`;
     db.query(query,(err,data)=>{
         console.table(data)
+        mainMenu()
     })
-    // .then(() => start())
     ;
 };
 
@@ -98,14 +106,14 @@ const viewAllEmployees = () => {
     const query = `SELECT * FROM employee;`;
     db.query(query,(err,data)=>{
         console.table(data)
+        mainMenu()
     })
-    // .then(() => start())
     ;
 };
 
 
 const updateRole = ()=> {
-    const query = `SELECT first_name FROM employee;`;
+    const query = `SELECT id, first_name FROM employee;`;
     db.query(query, (err,data)=>{
         inquirer.prompt(
             [
@@ -127,33 +135,36 @@ const updateRole = ()=> {
                     }
                 }
             ]
-        ).then((answer)=> {
-            const query1 = `SELECT title FROM role`;
+        ).then((answer1)=> {
+            const query1 = `SELECT id, title FROM role`;
             db.query (query1, (err,data)=>{
                 inquirer.prompt(
                     [
                         {
                             type: 'list',
                             name: 'changeRole',
-                            massage: `What is the new role?"`,
-                            choices: function(){
+                            message: `What is the new role?"`,
+                            choices: function () {
                                 const myRole = [];
-        
-                                for (let i= 0; i < data.length; i++) {
-                                    const roleData= {
+
+                                for (let i = 0; i < data.length; i++) {
+                                    const roleData = {
                                         name: data[i].title,
                                         value: data[i].id
+                                    }
+                                    myRole.push(roleData);
                                 }
-                                myRole.push(roleData);
-                         }
-                         return myRole;
+                                return myRole;
+                            }
                         }
-                    }
                     ]
-                ).then((answer)=>{
-                    const query = `INSERT INTO employee (role_id) VALUES ("${answer.roleData}");`;
+                ).then((answer2)=>{
+                    console.log('here is answer;', answer1)
+                    console.log('here is answer;', answer2)
+                    const query = `UPDATE employee SET role_id = ${answer2.changeRole} WHERE id = ${answer1.roleUpdate};`;
                     db.query(query,()=>{
                         console.log('employees new role has been logged');
+                        mainMenu()
                     })
                 }
                 );
@@ -163,16 +174,8 @@ const updateRole = ()=> {
 };
 
 
-
-       
-        // .then(() => start())
-
-    
-
-
-
-
-start()
+function mainMenu (){
+    start()
 .then((answer)=> {
 console.log(answer);
 switch (answer.usage){
@@ -197,10 +200,14 @@ switch (answer.usage){
     case 'View all employees?':
         viewAllEmployees();
         break;
-    case 'Update an existing role?':
+    case 'Update an employee role?':
         updateRole();
         break;
+    case 'exit?':
+        process.exit(1);
     default:
         console.log("default")
 }
-});
+})};
+
+mainMenu(); 
