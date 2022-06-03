@@ -1,35 +1,22 @@
+# Track-the-Employees 
 
-  # Track-The-Employees
+This app is for owners, managers, and CEO's. Use the command line to add a department, role, or employee. The user can also view all departments, roles, and employees. Lastly, the user can edit an employee or their role. This project will help anyone build the perfect employee tracking database.## Authors 
 
-## Description 
+Austin Miller 
+- [@Auzz24](https://github.com/auzz24)
+## Demo
 
-Use the command line to add a department, role, or employee. The user can also view all departments, roles, and employees. Lastly, the user can edit an employee or their role. This project will help you build the perfect employee tracking database. 
+https://drive.google.com/file/d/1Mkdxxly-UKeSHQDbZuqZMRdh7qQXrCnm/view
+## Tech Stack
 
-node index.js <---- Command to start the program
+**Client:** THERE IS NO CLIENT SIDE TO THIS PROJECT 
 
+**Server:** Node, Inquirer, and console table package 
+## Deployment
 
-## Table of Contents 
+To deploy this project download mysql2, Inquirer, and console table package through the Node Project Manager then run the following command line code: 
 
-* [Installation](#installation)
-* [Usage](#usage)
-* [Credits](#credits)
-* [License](#license)
+``node index.js ``
+## Support
 
-
-## Installation
-
-First I downloaded and linked in mysql2, Inquirer, and console table package. Then I built the department, role, and employee databases by populating them through the seed.sql, schema.sql, and seeds.sql files. Then I used Inquirer to prompt the user for information to populate the datdabase. 
-
-## Laguages used 
-
-JavaScript, Node, Inquirer, Mysql
-
-## Usage 
-
-Link to the usage video: 
-(https://drive.google.com/file/d/1Mkdxxly-UKeSHQDbZuqZMRdh7qQXrCnm/view)
-
-
-## Credits
-
-Made by Austin Miller
+For support, email austin.miller1424@gmail.com
